@@ -44,11 +44,9 @@ namespace Full_GRASP_And_SOLID.Library
 
             foreach (Step step in this.steps)
             {
-                //Asumo que un UnitCost son 100 gramos
-                costoInsumos += step.Input.UnitCost ;
+                costoInsumos += step.Input.UnitCost * step.Quantity;
 
-                // Asumimos que el tiempo de uso que nos dan es en segundos
-                costoEquipamiento += step.Time/(3600.0)  * step.Equipment.HourlyCost;
+                costoEquipamiento += step.Time * step.Equipment.HourlyCost;
             }
 
             costoTotal = costoEquipamiento + costoInsumos;
