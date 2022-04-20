@@ -25,6 +25,36 @@ namespace Full_GRASP_And_SOLID.Library
             this.steps.Remove(step);
         }
 
+        /// <summary>
+        /// Para asignar esta responsabilidad utilizamos el metodo Expert ya que 
+        /// la clase Recipe es la que tiene la información de los steps necesaria
+        /// la cual es necesaria para cumplir con la responsabilidad que se pide.
+        /// Asumí que es más optimo de este modo ya que el atributo steps el cual 
+        /// contiene todos los "step", es privado, por lo tanto para que se pueda 
+        /// utilizar en otra clase se deberia agregar un metodo get.
+        /// </summary>
+        /// <returns></returns>
+        public double GetProductionCost()
+        {
+            double costoInsumos = 0;
+
+            double costoEquipamiento = 0;    
+
+            double costoTotal = 0;
+
+            foreach (Step step in this.steps)
+            {
+                costoInsumos += step.Input.UnitCost;
+
+                // Asumimos que el tiempo de uso que nos dan es en minutos
+                costoEquipamiento += (step.Time / 60) * step.Equipment.HourlyCost;     
+            }
+
+            costoTotal = costoEquipamiento + costoInsumos;
+
+            return costoTotal;
+        }
+
         public void PrintRecipe()
         {
             Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
