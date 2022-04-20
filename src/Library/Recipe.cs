@@ -44,15 +44,16 @@ namespace Full_GRASP_And_SOLID.Library
 
             foreach (Step step in this.steps)
             {
-                costoInsumos += step.Input.UnitCost;
+                //Asumo que un UnitCost son 100 gramos
+                costoInsumos += step.Input.UnitCost ;
 
-                // Asumimos que el tiempo de uso que nos dan es en minutos
-                costoEquipamiento += (step.Time / 60) * step.Equipment.HourlyCost;     
+                // Asumimos que el tiempo de uso que nos dan es en segundos
+                costoEquipamiento += step.Time/(3600.0)  * step.Equipment.HourlyCost;
             }
 
             costoTotal = costoEquipamiento + costoInsumos;
-
-            return costoTotal;
+            
+            return Math.Round(costoTotal);
         }
 
         public void PrintRecipe()
@@ -61,7 +62,7 @@ namespace Full_GRASP_And_SOLID.Library
             foreach (Step step in this.steps)
             {
                 Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
-                    $"usando '{step.Equipment.Description}' durante {step.Time}");
+                    $"usando '{step.Equipment.Description}' durante {step.Time}" + $" y su costo total es de {GetProductionCost()}");
             }
         }
     }
